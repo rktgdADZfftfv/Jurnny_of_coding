@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tic Tac Toe — Modern CSS</title>
+  <style>
+    :root {
+      --bg: #0f1220;
+      --card: rgba(255, 255, 255, 0.08);
+      --accent: #7c5cff;
+      --accent-2: #00e5a8;
+      --text: #e7e9ee;
+      --muted: #a9aec3;
+      --x: #ff6b6b;
+      --o: #4dd4ff;
+      --win: #00e5a8;
+      --danger: #ff6b6b;
+      --radius: 16px;
+      --shadow-1: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --shadow-2: 0 20px 60px rgba(0, 0, 0, 0.5);
+      --blur: saturate(130%) blur(8px);
+      --gap: 16px;
+      --speed: 180ms;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,0.25), transparent 55%),
+        radial-gradient(800px 400px at 90% 20%, rgba(77,212,255,0.20), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .app {
+      width: min(520px, 94vw);
+      display: grid;
+      gap: var(--gap);
+      backdrop-filter: var(--blur);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-1);
+    }
+
+    .header {
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .title {
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .title .accent {
+      color: var(--accent);
+    }
+    .title .accent-2 {
+      color: var(--accent-2);
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform var(--speed) ease, box-shadow var(--speed) ease, border-color var(--speed) ease;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.28); }
+    .btn:active { transform: translateY(0); }
+    .btn.primary {
+      border-color: transparent;
+      background: radial-gradient(120px 80px at 20% 0%, rgba(124,92,255,0.35), transparent 60%),
+                  linear-gradient(180deg, rgba(124,92,255,0.35), rgba(124,92,255,0.18));
+      box-shadow: 0 8px 24px rgba(124,92,255,0.35);
+    }
+    .btn.outline {
+      background: transparent;
+    }
+
+    .status {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .pill {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot.x { background: var(--x); box-shadow: 0 0 10px rgba(255,107,107,0.6); }
+    .dot.o { background: var(--o); box-shadow: 0 0 10px rgba(77,212,255,0.6); }
+    .dot.win { background: var(--win); box-shadow: 0 0 10px rgba(0,229,168,0.6); }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      padding: var(--gap);
+    }
+
+    .cell {
+      aspect-ratio: 1 / 1;
+      display: grid;
+      place-items: center;
+      font-size: clamp(2.2rem, 8vw, 4rem);
+      font-weight: 800;
+      color: var(--text);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px;
+      cursor: pointer;
+      position: relative;
+      transition: transform var(--speed) ease, box-shadow var(--speed) ease, border-color var(--speed) ease, background var(--speed) ease;
+      box-shadow: var(--shadow-1);
+      overflow: hidden;
+    }
+    .cell:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.28); }
+    .cell:active { transform: translateY(0); }
+    .cell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(220px 160px at 50% -40%, rgba(255,255,255,0.18), transparent 70%);
+      opacity: 0;
+      transition: opacity var(--speed) ease;
+      pointer-events: none;
+    }
+    .cell:hover::after { opacity: 1; }
+    .cell.disabled { cursor: not-allowed; opacity: 0.75; }
+
+    .mark {
+      transform: scale(0.9);
+      transition: transform var(--speed) ease, color var(--speed) ease, text-shadow var(--speed) ease;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    .mark.x { color: var(--x); }
+    .mark.o { color: var(--o); }
+
+    .cell.win {
+      border-color: var(--win);
+      box-shadow: 0 0 0 2px rgba(0,229,168,0.35), var(--shadow-2);
+    }
+
+    .footer {
+      padding: 12px 18px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .mode {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      cursor: pointer;
+      transition: border-color var(--speed) ease, transform var(--speed) ease;
+      user-select: none;
+    }
+    .toggle:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.28); }
+    .toggle input { accent-color: var(--accent); }
+
+    .score {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 8px 14px;
+      align-items: center;
+      font-weight: 700;
+    }
+    .score .label { color: var(--muted); }
+
+    @media (max-width: 420px) {
+      .header { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .status { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .footer { flex-direction: column; align-items: flex-start; }
+      .controls { width: 100%; }
+      .btn { flex: 1; }
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .pop { animation: pop 180ms ease-out; }
+  </style>
+</head>
+<body>
+  <main class="app card" aria-label="Tic Tac Toe">
+    <div class="header">
+      <div class="title">
+        <span>Tic Tac Toe</span>
+        <span class="accent">Modern</span>
+        <span class="accent-2">CSS</span>
+      </div>
+      <div class="controls">
+        <button class="btn outline" id="resetBtn" aria-label="Reset game">Reset</button>
+        <button class="btn primary" id="newGameBtn" aria-label="New game">New game</button>
+      </div>
+    </div>
+
+    <div class="status">
+      <div class="pill" id="turnPill">
+        <span class="dot x" id="turnDot"></span>
+        <span id="turnText">X to move</span>
+      </div>
+      <div class="pill" id="resultPill" style="display:none;">
+        <span class="dot win"></span>
+        <span id="resultText">Winner: X</span>
+      </div>
+    </div>
+
+    <section class="board" role="grid" aria-label="Game board">
+      <!-- 9 cells -->
+      <button class="cell" role="gridcell" data-idx="0" aria-label="Cell 1"></button>
+      <button class="cell" role="gridcell" data-idx="1" aria-label="Cell 2"></button>
+      <button class="cell" role="gridcell" data-idx="2" aria-label="Cell 3"></button>
+      <button class="cell" role="gridcell" data-idx="3" aria-label="Cell 4"></button>
+      <button class="cell" role="gridcell" data-idx="4" aria-label="Cell 5"></button>
+      <button class="cell" role="gridcell" data-idx="5" aria-label="Cell 6"></button>
+      <button class="cell" role="gridcell" data-idx="6" aria-label="Cell 7"></button>
+      <button class="cell" role="gridcell" data-idx="7" aria-label="Cell 8"></button>
+      <button class="cell" role="gridcell" data-idx="8" aria-label="Cell 9"></button>
+    </section>
+
+    <div class="footer">
+      <div class="mode">
+        <label class="toggle">
+          <input type="checkbox" id="aiToggle" />
+          <span>Play vs AI</span>
+        </label>
+        <label class="toggle">
+          <input type="checkbox" id="xStartsToggle" checked />
+          <span>X starts</span>
+        </label>
+      </div>
+      <div class="score">
+        <span class="label">X:</span><span id="scoreX">0</span>
+        <span class="label">O:</span><span id="scoreO">0</span>
+        <span class="label">Draws:</span><span id="scoreD">0</span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const cells = Array.from(document.querySelectorAll('.cell'));
+    const turnText = document.getElementById('turnText');
+    const turnDot = document.getElementById('turnDot');
+    const resultPill = document.getElementById('resultPill');
+    const resultText = document.getElementById('resultText');
+    const resetBtn = document.getElementById('resetBtn');
+    const newGameBtn = document.getElementById('newGameBtn');
+    const aiToggle = document.getElementById('aiToggle');
+    const xStartsToggle = document.getElementById('xStartsToggle');
+    const scoreXEl = document.getElementById('scoreX');
+    const scoreOEl = document.getElementById('scoreO');
+    const scoreDEl = document.getElementById('scoreD');
+
+    const WINS = [
+      [0,1,2],[3,4,5],[6,7,8],
+      [0,3,6],[1,4,7],[2,5,8],
+      [0,4,8],[2,4,6]
+    ];
+
+    let board, current, gameOver;
+    let score = { X: 0, O: 0, D: 0 };
+
+    function init(newGame = false) {
+      board = Array(9).fill(null);
+      gameOver = false;
+      current = xStartsToggle.checked ? 'X' : 'O';
+      cells.forEach(c => {
+        c.innerHTML = '';
+        c.classList.remove('disabled', 'win');
+        c.disabled = false;
+      });
+      updateTurnUI();
+      hideResult();
+      if (newGame && aiToggle.checked && current === 'O') {
+        setTimeout(aiMove, 260);
+      }
+    }
+
+    function updateTurnUI() {
+      turnText.textContent = `${current} to move`;
+      turnDot.className = `dot ${current.toLowerCase()}`;
+    }
+
+    function showResult(text) {
+      resultText.textContent = text;
+      resultPill.style.display = 'inline-flex';
+    }
+
+    function hideResult() {
+      resultPill.style.display = 'none';
+    }
+
+    function placeMark(idx, mark) {
+      const cell = cells[idx];
+      const span = document.createElement('span');
+      span.className = `mark ${mark.toLowerCase()} pop`;
+      span.textContent = mark;
+      cell.appendChild(span);
+    }
+
+    function handleClick(e) {
+      const idx = Number(e.currentTarget.dataset.idx);
+      if (gameOver || board[idx]) return;
+
+      makeMove(idx, current);
+
+      if (!gameOver && aiToggle.checked && current === 'O') {
+        setTimeout(aiMove, 260);
+      }
+    }
+
+    function makeMove(idx, mark) {
+      board[idx] = mark;
+      placeMark(idx, mark);
+
+      const win = checkWin();
+      if (win) {
+        endGame(win);
+        return;
+      }
+
+      if (board.every(Boolean)) {
+        endGame(null);
+        return;
+      }
+
+      current = current === 'X' ? 'O' : 'X';
+      updateTurnUI();
+    } 
+
+    function checkWin() {
+      for (const combo of WINS) {
+        const [a,b,c] = combo;
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+          return { player: board[a], combo };
+        }
+      }
+      return null;
+    }
+
+    function endGame(win) {
+      gameOver = true;
+      cells.forEach(c => c.disabled = true);
+      if (win) {
+        for (const i of win.combo) {
+          cells[i].classList.add('win');
+        }
+        showResult(`Winner: ${win.player}`);
+        score[win.player] += 1;
+      } else {
+        showResult('Draw');
+        score.D += 1;
+      }
+      updateScoreUI();
+    }
+
+    function updateScoreUI() {
+      scoreXEl.textContent = score.X;
+      scoreOEl.textContent = score.O;
+      scoreDEl.textContent = score.D;
+    }
+
+    // Simple AI: try to win, block, center, corner, any
+    function aiMove() {
+      if (gameOver) return;
+      const ai = 'O';
+      const human = 'X';
+
+      // 1. Winning move
+      let idx = findBest(ai);
+      // 2. Block human
+      if (idx == null) idx = findBest(human);
+      // 3. Center
+      if (idx == null && !board[4]) idx = 4;
+      // 4. Corner
+      if (idx == null) {
+        const corners = [0,2,6,8].filter(i => !board[i]);
+        idx = corners[0];
+      }
+      // 5. Any
+      if (idx == null) {
+        idx = board.findIndex(v => !v);
+      }
+      if (idx != null) {
+        makeMove(idx, ai);
+      }
+    }
+
+    function findBest(player) {
+      for (const [a,b,c] of WINS) {
+        const line = [board[a], board[b], board[c]];
+        const countPlayer = line.filter(v => v === player).length;
+        const countEmpty = line.filter(v => v == null).length;
+        if (countPlayer === 2 && countEmpty === 1) {
+          if (board[a] == null) return a;
+          if (board[b] == null) return b;
+          if (board[c] == null) return c;
+        }
+      }
+      return null;
+    }
+
+    // Events
+    cells.forEach(c => c.addEventListener('click', handleClick));
+    resetBtn.addEventListener('click', () => {
+      score = { X: 0, O: 0, D: 0 };
+      updateScoreUI();
+      init(true);
+    });
+    newGameBtn.addEventListener('click', () => init(true));
+    aiToggle.addEventListener('change', () => init(true));
+    xStartsToggle.addEventListener('change', () => init(true));
+
+    // Start
+    init(true);
+  </script>
+</body>
+</html>
