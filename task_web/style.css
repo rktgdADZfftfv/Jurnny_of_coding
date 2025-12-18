@@ -1,0 +1,180 @@
+/* Base styles */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f7fb;
+    color: #0f172a;
+}
+
+/* Main container */
+.main-container {
+    /* max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px; */
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+/* Header section */
+.section1 {
+    /* display: flex; */
+    /* align-items: center; */
+    text-align: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.logo img {
+    height: 50px;
+    margin-left: 400px;
+
+}
+
+.text h1 {
+    font-size: 40px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.text h1 span:last-child {
+    color: #2563eb;
+    font-weight: 700;
+    margin-left: 8px;
+}
+
+/* Left text section */
+.left-text {
+    display: flex;
+}
+
+.left-text2 {
+    margin-bottom: 30px;
+    text-align: center;
+    margin-left: 300px;
+    display: block;
+    font-size: 20px;
+
+}
+
+.left-text1 {
+    margin-bottom: 30px;
+    text-align: center;
+    margin-left: 300px;
+    display: block;
+    font-size: 20px;
+    white-space: wrap;
+}
+.styletext3{
+    margin-left: 15px;
+}
+
+/* .styletext{
+  font-size: 20px;
+  margin-bottom: 12px;
+  margin-left: 100px;
+  line-height: 1.6;
+  display: block;
+} */
+.styletext span {
+    margin-left: 100px;
+
+}
+
+/* Feature list */
+
+.feature {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    display: block;
+
+}
+
+.feature li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 100px;
+    font-weight: 500;
+    margin-top: 30px;
+}
+
+.feature li::before {
+    content: "✔";
+    color: #ffffff;
+    background-color: #2563eb;
+    border-radius: 50%;
+    padding: 4px 8px;
+    margin-right: 10px;
+    font-size: 12px;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+
+}
+
+/* Form section */
+.email {
+    margin-left: 300px;
+}
+
+.email form {
+    background-color: #f9fafb;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.email label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.email input,
+.email select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.email input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+}
+
+.email button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    font-size: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.email button:hover {
+    background-color: #1d4ed8;
+}
+
+/* Trial message */
+.star {
+    margin-top: 20px;
+}
+
+.str {
+    font-size: 20px;
+    background-color: #e0f2fe;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    align-items: center;
+}
+
+.str img {
+    height: 20px;
+    margin-right: 10px;
+}
