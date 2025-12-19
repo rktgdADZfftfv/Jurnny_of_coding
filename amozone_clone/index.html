@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amazon Clone</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Top header -->
+  <header class="header">
+    <div class="header__left">
+      <a class="logo" href="#">
+        <img src="assets/logo.png" alt="Amazon" />
+      </a>
+      <div class="deliver">
+        <span class="deliver__label">Deliver to</span>
+        <span class="deliver__place">Barkagaon 825311</span>
+      </div>
+    </div>
+
+    <form class="search">
+      <select class="search__category" aria-label="Search category">
+        <option selected>All</option>
+        <option>Electronics</option>
+        <option>Fashion</option>
+        <option>Home & Kitchen</option>
+      </select>
+      <input class="search__input" type="search" placeholder="Search Amazon" />
+      <button class="search__btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" fill="none"/><line x1="20" y1="20" x2="16.5" y2="16.5" stroke="currentColor"/></svg>
+      </button>
+    </form>
+
+    <div class="header__right">
+      <div class="language">
+        <img src="assets/flag-in.png" alt="IN" />
+        <span>EN</span>
+      </div>
+      <div class="account">
+        <span class="small">Hello, gamer</span>
+        <strong>Account & Lists</strong>
+      </div>
+      <div class="returns">
+        <span class="small">Returns</span>
+        <strong>& Orders</strong>
+      </div>
+      <a class="cart" href="#">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h15l-2 9H8L6 6z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+        <span class="cart__count">0</span>
+        <strong>Cart</strong>
+      </a>
+    </div>
+  </header>
+
+  <!-- Secondary nav -->
+  <nav class="nav">
+    <button class="nav__all">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor"/></svg>
+      <span>All</span>
+    </button>
+    <a href="#">Today's Deals</a>
+    <a href="#">Customer Service</a>
+    <a href="#">Registry</a>
+    <a href="#">Gift Cards</a>
+    <a href="#">Sell</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__slides">
+      <img src="assets/hero-1.jpg" alt="Holiday deals" class="active" />
+      <img src="assets/hero-2.jpg" alt="New arrivals" />
+      <img src="assets/hero-3.jpg" alt="Electronics sale" />
+    </div>
+    <div class="hero__msg">
+      <p>You are on the Amazon clone. Shop smart, clone sharper.</p>
+      <a href="#">Click here to go to Amazon.in</a>
+    </div>
+  </section>
+
+  <!-- Content grid -->
+  <main class="grid">
+    <article class="card">
+      <h2>Up to 60% off | Home essentials</h2>
+      <div class="card__grid">
+        <a class="tile" href="#"><img src="assets/product-1.jpg" alt=""><span>Curtains</span></a>
+        <a class="tile" href="#"><img src="assets/product-2.jpg" alt=""><span>Storage</span></a>
+        <a class="tile" href="#"><img src="assets/product-3.jpg" alt=""><span>Lighting</span></a>
+        <a class="tile" href="#"><img src="assets/product-4.jpg" alt=""><span>Decor</span></a>
+      </div>
+      <a class="card__link" href="#">See more</a>
+    </article>
+
+    <article class="card">
+      <h2>Keep shopping for</h2>
+      <div class="card__grid">
+        <a class="product" href="#">
+          <img src="assets/product-5.jpg" alt="">
+          <span class="product__title">Wireless Headphones</span>
+          <span class="product__price">₹2,499</span>
+        </a>
+        <a class="product" href="#">
+          <img src="assets/product-6.jpg" alt="">
+          <span class="product__title">Gaming Mouse</span>
+          <span class="product__price">₹1,299</span>
+        </a>
+        <a class="product" href="#">
+          <img src="assets/product-7.jpg" alt="">
+          <span class="product__title">Mechanical Keyboard</span>
+          <span class="product__price">₹3,999</span>
+        </a>
+      </div>
+      <a class="card__link" href="#">Browse all</a>
+    </article>
+
+    <article class="card wide">
+      <h2>Deals of the day</h2>
+      <div class="deals">
+        <a class="deal" href="#">
+          <img src="assets/product-8.jpg" alt="">
+          <span class="deal__badge">20% off</span>
+          <span class="deal__title">Smartwatch</span>
+          <span class="deal__sub">Limited time</span>
+        </a>
+        <a class="deal" href="#">
+          <img src="assets/product-9.jpg" alt="">
+          <span class="deal__badge">40% off</span>
+          <span class="deal__title">Bluetooth Speaker</span>
+          <span class="deal__sub">Ends today</span>
+        </a>
+        <a class="deal" href="#">
+          <img src="assets/product-10.jpg" alt="">
+          <span class="deal__badge">30% off</span>
+          <span class="deal__title">Air Fryer</span>
+          <span class="deal__sub">Great value</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <a class="back-to-top" href="#">Back to top</a>
+    <div class="footer__cols">
+      <div>
+        <h3>Get to Know Us</h3>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Press Releases</a>
+      </div>
+      <div>
+        <h3>Connect with Us</h3>
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+      </div>
+      <div>
+        <h3>Make Money with Us</h3>
+        <a href="#">Sell on Amazon</a>
+        <a href="#">Advertise Your Products</a>
+      </div>
+      <div>
+        <h3>Let Us Help You</h3>
+        <a href="#">Your Account</a>
+        <a href="#">Returns Centre</a>
+        <a href="#">Help</a>
+      </div>
+    </div>
+    <div class="footer__brand">
+      <img src="assets/logo.png" alt="Amazon" />
+      <span>English</span>
+      <span>India</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

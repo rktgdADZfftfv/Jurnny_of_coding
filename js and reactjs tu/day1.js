@@ -35,4 +35,4 @@ const generateReceipt = (price1, price2) => {
 }
 const myBill = generateReceipt(haircutPrice, shavePrice)
 console.log("Total price is", myBill);
-
+let a ="b";
