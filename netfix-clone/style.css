@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+.main-header {
+    position: relative;
+    background: url("src/netflix-banner.jpg") center/cover no-repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Black overlay only on background */
+.main-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+/* Content sits above overlay */
+.cont,
+.title,
+.email {
+    position: relative;
+    z-index: 2;
+}
+
+/* Header top bar */
+.cont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo-image img {
+    width: 200px;
+    height: auto;
+}
+
+/* Language + Sign In buttons */
+.main-button {
+    display: flex;
+    align-items: center;
+}
+
+.btn select {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sin button {
+    border: none;
+    border-radius: 5px;
+    background-color: #e50914;
+    color: white;
+    margin-left: 15px;
+    padding: 6px 14px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Hero text */
+.title {
+    text-align: center;
+    margin-top: 120px;
+}
+
+.title h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.title h4 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.title h3 {
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+/* Email input + button */
+.email {
+    text-align: center;
+}
+
+.email input {
+    border: 1px solid white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    width: 300px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+}
+
+.butt button {
+    border: none;
+    background-color: #e50914;
+    padding: 15px 25px;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.curved-overlay {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Dark curved layer */
+.curved-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    background: linear-gradient(to right, red, blue);
+    z-index: 2;
+}
+
+/* Gradient border line */
+.curved-overlay::after {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: rgba(0, 0, 0, 0.7);
+    border-bottom-left-radius: 50% 100px;
+    border-bottom-right-radius: 50% 100px;
+    z-index: 1;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5), 0 0 30px rgba(0, 0, 255, 0.5);
+}
