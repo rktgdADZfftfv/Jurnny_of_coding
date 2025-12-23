@@ -96,8 +96,8 @@ body {
 }
 
 .sin button:hover {
-     filter: drop-shadow(0 0 20px white) drop-shadow(0 0 40px #ff0000);
-     transform: scale(1.05);
+    filter: drop-shadow(0 0 20px white) drop-shadow(0 0 40px #ff0000);
+    transform: scale(1.05);
 }
 
 /* Hero text */
@@ -142,10 +142,18 @@ body {
     border-bottom: solid rgb(15, 209, 144); */
 
 }
-
-.email input::placeholder {
-    color: rgb(20, 213, 219);
+.email input:hover {
+     /* reverse gradient */
+    transform: scale(1.08);
+    /* slight zoom */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    /* subtle shadow */
+    transition: all 0.4s ease-in-out;
 }
+
+/* .email input::placeholder {
+    color: rgb(20, 213, 219);
+} */
 
 .butt button {
     border: none;
@@ -157,7 +165,16 @@ body {
     font-size: 20px;
     margin-left: 10px;
     cursor: pointer;
+    /* filter: drop-shadow(0 0 20px white) drop-shadow(0 0 40px #ff0000); */
 }
+.butt button:hover{
+    transform: scale(1.08);
+}
+
+/* .butt button:hover {
+    filter: drop-shadow(0 0 20px white) drop-shadow(0 0 40px #ff0000);
+    transform: scale(0.05);
+} */
 
 .curved-overlay {
     border: 5px solid red;
@@ -194,6 +211,15 @@ body {
     width: 200px;
     box-shadow: offset-x offset-y blur-radius spread-radius color;
 
+}
+.small-img2:hover {
+     /* background: linear-gradient(to right, #8f2f2f, #0f0f0f); */
+    /* reverse gradient */
+    transform: scale(1.2);
+    /* slight zoom */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    /* subtle shadow */
+    transition: all 0.4s ease-in-out;
 }
 
 .more {
