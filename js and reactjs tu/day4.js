@@ -102,3 +102,7 @@ console.log(totalMoney);
 manu.map((item) => {
    console.log(`all price is: ${item.price2} and all name: ${item.name}`);
 });
+
+// const arr1  = [1,  2, 3, 4, 5, 6, 7, 8, 9, 10]; const a = Math.max(...arr1); console.log(a);
+
+

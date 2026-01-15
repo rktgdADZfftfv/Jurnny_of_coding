@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden; /* Scroll band, sirf map aur sidebar rahega */
+}
+/* Container for Map + Sidebar */
+.main-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+/* Map peeche rahega */
+.map-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+/* --- Floating Glass Sidebar --- */
+.sidebar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 350px;
+  max-height: 90vh;
+  background: rgba(20, 20, 30, 0.85); /* Dark Transparent */
+  backdrop-filter: blur(12px);         /* Glass Effect */
+  border-radius: 20px;
+  padding: 25px;
+  z-index: 10; /* Map ke upar */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+.logo {
+  font-size: 1.8rem;
+  margin: 0 0 20px 0;
+  background: linear-gradient(45deg, #ff4b1f, #ff9068);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* Input Fields */
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  color: white;
+  outline: none;
+  transition: 0.3s;
+}
+input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 2px #ff9068;
+}
+/* Buttons */
+button {
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+button:active { transform: scale(0.95); }
+.btn-search {
+  background: #3b82f6;
+  color: white;
+  padding: 0 15px;
+}
+.btn-add {
+  background: #10b981;
+  color: white;
+  padding: 0 15px;
+}
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin: 10px 0 20px 0;
+}
+/* Task List Area */
+.task-container {
+  overflow-y: auto; /* Agar tasks zyada ho jaye to scroll */
+  flex: 1;
+  padding-right: 5px;
+}
+/* Scrollbar styling */
+.task-container::-webkit-scrollbar { width: 5px; }
+.task-container::-webkit-scrollbar-thumb { background: #555; border-radius: 5px; }
+.task-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 4px solid #ff9068;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.task-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+.task-info span {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.task-info small {
+  color: #aaa;
+  font-size: 0.75rem;
+}
+.btn-del {
+  background: transparent;
+  color: #ff4b4b;
+  border: 1px solid rgba(255, 75, 75, 0.3);
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+.btn-del:hover {
+  background: #ff4b4b;
+  color: white;
+}
+.empty-msg {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .sidebar {
+    width: 90%;
+    left: 5%;
+    bottom: 20px;
+    top: auto; /* Mobile me sidebar neeche rahega */
+    max-height: 50vh;
+  }
+}
