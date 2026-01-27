@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: rgb(138, 157, 163);
+}
+.card{
+    display: flex;
+    gap: 100px;
+    margin-left: 80px;
+}
+table{
+    margin-top: 20px;
+    margin-left: 200px;
+
+}
+th {
+    font-size: 50px;
+    margin-top: 20px;
+    color: black;
+   padding: 20px;
+}
+td{
+    padding: 10px;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+}
+table tr{
+    counter-increment: rowNumber;
+}
+table tr td:first-child::before{
+    content: counter(rowNumber);
+}

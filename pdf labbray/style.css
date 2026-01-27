@@ -1,0 +1,153 @@
+:root {
+      --bg-light: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+      --bg-dark: #1e1e2f;
+      --box-light: #fff;
+      --box-dark: #2c2c3a;
+      --text-light: #333;
+      --text-dark: #eee;
+      --btn-download: #4CAF50;
+      --btn-delete: #e74c3c;
+      --btn-preview: #3498db;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      background: var(--bg-light);
+      transition: background 0.3s ease;
+    }
+    body.dark { background: var(--bg-dark); }
+
+    h1 { color: #fff; margin-bottom: 15px; text-align: center; }
+
+    .mode-toggle, .search-bar input {
+      margin: 10px;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .mode-toggle { background: #444; color: #fff; }
+    .mode-toggle:hover { background: #222; }
+    .search-bar input { width: 250px; }
+
+    .upload-box {
+      background: var(--box-light);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 20px;
+    }
+    body.dark .upload-box { background: var(--box-dark); color: var(--text-dark); }
+
+    .upload-box input[type="file"], .upload-box input[type="text"] {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      background: #f0f0f0;
+    }
+    body.dark .upload-box input { background: #444; color: #eee; }
+
+    .pdf-list { width: 100%; max-width: 700px; }
+
+    .pdf-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--box-light);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    body.dark .pdf-container { background: var(--box-dark); color: var(--text-dark); }
+
+    .pdf-container p { margin: 0; font-size: 14px; flex: 1; word-break: break-word; }
+
+    .btn-group { display: flex; gap: 8px; margin-top: 10px; }
+
+    .download-btn, .delete-btn, .preview-btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: 0.3s;
+      color: #fff;
+    }
+    .download-btn { background: var(--btn-download); }
+    .download-btn:hover { background: #45a049; }
+    .delete-btn { background: var(--btn-delete); }
+    .delete-btn:hover { background: #c0392b; }
+    .preview-btn { background: var(--btn-preview); }
+    .preview-btn:hover { background: #2980b9; }
+
+    .preview-frame {
+      width: 100%;
+      height: 400px;
+      border: none;
+      margin-top: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .pdf-container { flex-direction: column; align-items: flex-start; }
+      .btn-group { width: 100%; justify-content: flex-end; }
+      .preview-frame { height: 300px; }
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 20px; }
+      .download-btn, .delete-btn, .preview-btn { font-size: 12px; padding: 6px 10px; }
+      .preview-frame { height: 250px; }
+    }
+
+    /* add pdf  */
+    .upload-box button{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+.download-btn, .delete-btn, .preview-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease; /* smooth animation */
+  color: #a82424;
+}
+
+/* Normal colors */
+.download-btn { background: #4CAF50; }
+.delete-btn { background: #e74c3c; }
+.preview-btn { background: #3498db; }
+
+/* Hover effects with zoom */
+.download-btn:hover {
+  background: #45a049;
+  transform: scale(1.08);   /* thoda zoom */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+  transform: scale(1.08);   /* thoda zoom */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.preview-btn:hover {
+  background: #2980b9;
+  transform: scale(1.08);   /* thoda zoom */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}

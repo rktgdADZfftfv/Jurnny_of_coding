@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>PDF Upload, Preview & Download</title>
+</head>
+<body>
+  <h1>📄 PDF Upload, Preview & Download</h1>
+  <button class="mode-toggle" onclick="toggleMode()">🌙 Toggle Dark Mode</button>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search by PDF name..." onkeyup="searchPDFs()">
+  </div>
+
+  <!-- Upload Box -->
+  <div class="upload-box">
+    <label><strong>Upload your PDF:</strong></label>
+    <input type="file" id="pdfUpload" accept="application/pdf">
+    <input type="text" id="pdfName" placeholder="Enter custom name for PDF">
+    <button onclick="addPDF()">Add PDF</button>
+  </div>
+
+  <!-- PDF List -->
+  <div class="pdf-list" id="pdfList"></div>
+</body>
+<script src="script.js"></script>
+</html>
