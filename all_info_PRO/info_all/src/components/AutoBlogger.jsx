@@ -53,7 +53,7 @@ function AutoBlogger() {
     addLog("🕵️ Spy Robot: Searching for fresh news...");
 
     const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY;
-    const url = `https://newsapi.org/v2/everything?q=tesla&sortBy=publishedAt&apiKey=YOUR_KEY${NEWS_API_KEY}`;
+    const url = `https://newsapi.org/v2/everything?q=tesla&from=2026-01-09&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`;
 
     try {
       const response = await fetch(url);
