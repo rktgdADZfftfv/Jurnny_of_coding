@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import AutoBlogger from './autoBlogger'
+import AutoBlogger from "./components/AutoBlogger";
 import './App.css'
 
 function App() {
