@@ -3,62 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mushroom World</title>
+  <title>Mushroom Market</title>
   <link rel="stylesheet" href="style.css">
+  <!-- FontAwesome for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <h1>🍄 Mushroom World</h1>
-    <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">🍄 Mushroom Market</div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#products">Shop</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button id="cart-btn" class="cart-btn">Cart 🛒 (<span id="cart-count">0</span>)</button>
+  </nav>
 
   <!-- Hero Section -->
-  <section class="hero">
-    <h2>Discover the Magic of Mushrooms</h2>
-    <button onclick="showAlert()">Explore Now</button>
-  </section>
-
-  <!-- About Section -->
-  <section id="about">
-    <h2>About Mushrooms</h2>
-    <p>Mushrooms are fascinating fungi that come in many shapes, colors, and flavors. 
-       They are used in cooking, medicine, and even art.</p>
-  </section>
-
-  <!-- Gallery Section -->
-  <section id="gallery">
-    <h2>Mushroom Gallery</h2>
-    <div class="grid">
-      <div class="card">🍄 Amanita</div>
-      <div class="card">🍄 Shiitake</div>
-      <div class="card">🍄 Oyster</div>
-      <div class="card">🍄 Morel</div>
+  <header class="hero" id="hero">
+    <div class="hero-text">
+      <h1>Fresh & Organic Mushrooms</h1>
+      <p>Delicious, healthy, and delivered to your door</p>
+      <a href="#products" class="btn">Shop Now</a>
     </div>
-  </section>
+  </header>
 
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea placeholder="Message"></textarea>
-      <button type="submit">Send</button>
-    </form>
-  </section>
+  <!-- Product Grid -->
+  <main id="products" class="product-grid">
+    <div class="card">
+      <img src="src/m2.webp" alt="Button Mushrooms">
+      <h3>Button Mushrooms</h3>
+      <p>$5.99</p>
+      <button>Add to Cart</button>
+      <button class="btn">Buy Now</button>
+    </div>
+    <div class="card">
+      <img src="src/m.jpg" alt="Shiitake Mushrooms">
+      <h3>Shiitake Mushrooms</h3>
+      <p>$8.99</p>
+      <button>Add to Cart</button>
+      <button class="btn">Buy Now</button>
+    </div>
+    <div class="card">
+      <img src="src/m2.webp" alt="Oyster Mushrooms">
+      <h3>Oyster Mushrooms</h3>
+      <p>$7.49</p>
+      <button>Add to Cart</button>
+      <button class="btn">Buy Now</button>
+    </div>
+    <div class="card">
+      <img src="src/m.jpg" alt="Mushroom Grow Kit">
+      <h3>Mushroom Grow Kit</h3>
+      <p>$19.99</p>
+      <button>Add to Cart</button>
+      <button class="btn">Buy Now</button>
+    </div>
+  </main>
+
+  <!-- Cart Sidebar -->
+  <aside class="cart" id="cart">
+    <h2>Your Cart</h2>
+    <ul id="cart-items"></ul>
+    <p>Total: $<span id="cart-total">0.00</span></p>
+    <button id="checkout-btn" class="btn checkout">Checkout</button>
+    <button id="close-cart" class="btn">Close</button>
+  </aside>
 
   <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Mushroom World</p>
+  <footer class="footer" id="contact">
+    <div class="footer-content">
+      <div>
+        <h3>🍄 Mushroom Market</h3>
+        <p>Fresh from farm to table.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#products">Shop</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow Us</h4>
+        <div class="social-links">
+          <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2026 Mushroom Market | All rights reserved</p>
   </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
+ 

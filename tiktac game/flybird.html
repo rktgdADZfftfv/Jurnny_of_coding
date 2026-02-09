@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FlyBird Game</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: skyblue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    .game {
+      position: relative;
+      width: 400px;
+      height: 500px;
+      background: lightgreen;
+      overflow: hidden;
+      border: 2px solid #333;
+      cursor: pointer; /* shows clickable hand */
+    }
+
+    #bird {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: yellow;
+      border-radius: 50%;
+      top: 200px;
+      left: 50px;
+    }
+
+    .pipe {
+      position: absolute;
+      width: 60px;
+      background: green;
+    }
+
+    #score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    #message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 22px;
+      font-weight: bold;
+      background: none; /* removed white shade */
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="game">
+    <div id="score">Score: 0</div>
+    <div id="bird"></div>
+    <div id="message">Press Enter to Start</div>
+  </div>
+
+  <script>
+    const game = document.querySelector(".game");
+    const bird = document.getElementById("bird");
+    const scoreDisplay = document.getElementById("score");
+    const message = document.getElementById("message");
+
+    let birdTop;
+    let gravity = 2;
+    let isGameOver;
+    let score;
+    let fallInterval;
+    let pipeTimeout;
+
+    function resetGame() {
+      birdTop = 200;
+      bird.style.top = birdTop + "px";
+      score = 0;
+      scoreDisplay.textContent = "Score: 0";
+      isGameOver = false;
+      message.textContent = "";
+      clearInterval(fallInterval);
+      clearTimeout(pipeTimeout);
+
+      // Remove old pipes
+      document.querySelectorAll(".pipe").forEach(p => p.remove());
+
+      // Start falling
+      fallInterval = setInterval(fall, 20);
+
+      // Start pipes
+      createPipe();
+    }
+
+    function fall() {
+      if (!isGameOver) {
+        birdTop += gravity;
+        bird.style.top = birdTop + "px";
+
+        if (birdTop > 470 || birdTop < 0) {
+          endGame();
+        }
+      }
+    }
+
+    function jump() {
+      if (!isGameOver) {
+        birdTop -= 40;
+        bird.style.top = birdTop + "px";
+      }
+    }
+
+    // Controls: Spacebar OR Arrow Up OR Mouse Click
+    document.addEventListener("keydown", e => {
+      if (e.code === "Space" || e.code === "ArrowUp") {
+        jump();
+      }
+      if (e.code === "Enter" && isGameOver) {
+        resetGame();
+      }
+    });
+
+    game.addEventListener("click", () => {
+      if (!isGameOver) {
+        jump();
+      }
+    });
+
+    function createPipe() {
+      if (isGameOver) return;
+
+      let pipeTop = document.createElement("div");
+      let pipeBottom = document.createElement("div");
+      let gap = 120;
+      let pipeHeight = Math.floor(Math.random() * 200) + 50;
+
+      pipeTop.classList.add("pipe");
+      pipeBottom.classList.add("pipe");
+
+      pipeTop.style.height = pipeHeight + "px";
+      pipeTop.style.top = "0px";
+      pipeTop.style.right = "-60px";
+
+      pipeBottom.style.height = (500 - pipeHeight - gap) + "px";
+      pipeBottom.style.bottom = "0px";
+      pipeBottom.style.right = "-60px";
+
+      game.appendChild(pipeTop);
+      game.appendChild(pipeBottom);
+
+      let movePipe = setInterval(() => {
+        if (isGameOver) {
+          clearInterval(movePipe);
+          pipeTop.remove();
+          pipeBottom.remove();
+          return;
+        }
+
+        let pipeRight = parseInt(pipeTop.style.right);
+        pipeRight += 2;
+        pipeTop.style.right = pipeRight + "px";
+        pipeBottom.style.right = pipeRight + "px";
+
+        // Collision detection
+        let birdRect = bird.getBoundingClientRect();
+        let topRect = pipeTop.getBoundingClientRect();
+        let bottomRect = pipeBottom.getBoundingClientRect();
+
+        if (
+          (birdRect.right > topRect.left &&
+           birdRect.left < topRect.right &&
+           birdRect.top < topRect.bottom) ||
+          (birdRect.right > bottomRect.left &&
+           birdRect.left < bottomRect.right &&
+           birdRect.bottom > bottomRect.top)
+        ) {
+          endGame();
+        }
+
+        // Score
+        if (pipeRight === 400) {
+          score++;
+          scoreDisplay.textContent = "Score: " + score;
+        }
+
+        if (pipeRight > 460) {
+          clearInterval(movePipe);
+          pipeTop.remove();
+          pipeBottom.remove();
+        }
+      }, 20);
+
+      pipeTimeout = setTimeout(createPipe, 2000);
+    }
+
+    function endGame() {
+      isGameOver = true;
+      clearInterval(fallInterval);
+      message.textContent = "Game Over! Press Enter to Restart";
+    }
+
+    // Initial state
+    isGameOver = true;
+  </script>
+</body>
+</html>

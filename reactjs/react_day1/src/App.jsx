@@ -68,13 +68,5 @@ function App() {
     </div>
   );
 }
-export default App;
 
-import Student from './satudent';
-function School(){
-  return(
-    <div>
-      <h1>My Classment</h1>  
-    </div>
-  )
-}
+export default App;
