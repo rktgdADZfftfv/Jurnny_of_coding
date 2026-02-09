@@ -6,7 +6,6 @@ function AutoBlogger() {
   const [isLoading, setIsLoading] = useState(false);
   const [userLang, setUserLang] = useState("en"); // default English
 
-  // Helper: Logs dikhane ke liye
   const addLog = (message) => setLogs((prev) => [...prev, message]);
 
   // --- Detect User Language via IP ---
@@ -22,6 +21,7 @@ function AutoBlogger() {
           IN: "hi", // Hindi
           FR: "fr", // French
           JP: "ja", // Japanese
+          RU: "ru", // Russian
           US: "en", // English
         };
 
@@ -34,12 +34,25 @@ function AutoBlogger() {
     detectLanguage();
   }, []);
 
-  // --- 1. SPY ROBOT (NewsAPI - Random Edition) ---
+  // --- Helper: Translate text using free API ---
+  const translateText = async (text, targetLang) => {
+    if (targetLang === "en") return text; // no translation needed
+    try {
+      const response = await fetch("https://api.mymemory.translated.net/get?q=" + encodeURIComponent(text) + "&langpair=en|" + targetLang);
+      const data = await response.json();
+      return data.responseData.translatedText || text;
+    } catch (err) {
+      console.error("Translation error:", err);
+      return text;
+    }
+  };
+
+  // --- 1. Fetch News ---
   const fetchNews = async () => {
     setIsLoading(true);
     addLog("🕵️ Spy Robot: Searching for fresh news...");
 
-    const NEWS_API_KEY = "57cb8a6fa0c746bb8d0c0175387a19bd";
+    const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY;
     const url = `https://newsapi.org/v2/everything?q=tesla&from=2026-01-09&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`;
 
     try {
@@ -67,11 +80,11 @@ function AutoBlogger() {
     }
   };
 
-  // --- 2. CREATOR ROBOT (Groq AI + Unsplash fallback) ---
+  // --- 2. Generate Article (Groq AI + Translation + Unsplash fallback) ---
   const generateArticle = async (title, description, imageUrl) => {
     addLog("🤖 Groq AI: Writing in English... ⚡");
 
-    const GROQ_API_KEY = "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";
+    const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
     const url = "https://api.groq.com/openai/v1/chat/completions";
     const requestBody = {
       model: "llama-3.1-8b-instant",
@@ -107,18 +120,15 @@ function AutoBlogger() {
         imageUrl ||
         `https://source.unsplash.com/800x400/?${encodeURIComponent(title)}`;
 
-      // Translate title based on userLang (using browser's built-in Intl API for demo)
-      const translatedTitle =
-        userLang === "en"
-          ? title
-          : new Intl.DisplayNames([userLang], { type: "language" })
-              ? title // Placeholder: ideally use translation API
-              : title;
+      // Translate title & description to userLang
+      const translatedTitle = await translateText(title, userLang);
+      const translatedDescription = await translateText(description, userLang);
 
       addLog("✅ Article Published!");
       const newPost = {
         id: Date.now(),
         title: translatedTitle,
+        description: translatedDescription,
         content: aiContent,
         image: finalImage
       };
@@ -134,7 +144,6 @@ function AutoBlogger() {
     <div className="dashboard dark-mode">
       <h1 className="title">⚙️ Auto-Blogger Dashboard</h1>
 
-      {/* --- BUTTON AREA --- */}
       <div className="button-area">
         {isLoading ? (
           <p className="loading">⏳ Robots are working...</p>
@@ -145,7 +154,6 @@ function AutoBlogger() {
         )}
       </div>
 
-      {/* --- LOGS --- */}
       <div className="logs">
         {logs.length === 0 ? (
           <div>System Ready... Waiting for command.</div>
@@ -154,16 +162,14 @@ function AutoBlogger() {
         )}
       </div>
 
-      {/* --- ARTICLES --- */}
       <div className="articles">
         <h2>📝 Live Articles</h2>
-        {articles.length === 0 && (
-          <p className="empty">No articles yet.</p>
-        )}
+        {articles.length === 0 && <p className="empty">No articles yet.</p>}
         {articles.map((post) => (
           <div key={post.id} className="card">
             <img src={post.image} alt="Tech" className="card-img" />
             <h2 className="card-title">{post.title}</h2>
+            <p className="card-desc">{post.description}</p>
             <div className="card-content">{post.content}</div>
           </div>
         ))}
