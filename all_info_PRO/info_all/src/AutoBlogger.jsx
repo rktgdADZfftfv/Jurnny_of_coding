@@ -4,23 +4,37 @@ function AutoBlogger() {
   const [logs, setLogs] = useState([]);
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [userLang, setUserLang] = useState("en"); // default English
 
+  // Helper: Logs dikhane ke liye
   const addLog = (message) => setLogs((prev) => [...prev, message]);
 
-  // --- Auto trigger every 1 hour ---
+  // --- Detect User Language via IP ---
   useEffect(() => {
-    // Immediately run once when component mounts
-    fetchNews();
+    const detectLanguage = async () => {
+      try {
+        const response = await fetch("https://ipapi.co/json/");
+        const data = await response.json();
+        const countryCode = data.country_code;
 
-    // Then repeat every 1 hour (3600000 ms)
-    const interval = setInterval(() => {
-      fetchNews();
-    }, 3600000);
+        // Simple mapping (expand as needed)
+        const languageMap = {
+          IN: "hi", // Hindi
+          FR: "fr", // French
+          JP: "ja", // Japanese
+          US: "en", // English
+        };
 
-    // Cleanup on unmount
-    return () => clearInterval(interval);
+        setUserLang(languageMap[countryCode] || "en");
+      } catch (err) {
+        console.error("Language detection failed:", err);
+        setUserLang("en");
+      }
+    };
+    detectLanguage();
   }, []);
 
+  // --- 1. SPY ROBOT (NewsAPI - Random Edition) ---
   const fetchNews = async () => {
     setIsLoading(true);
     addLog("🕵️ Spy Robot: Searching for fresh news...");
@@ -53,6 +67,7 @@ function AutoBlogger() {
     }
   };
 
+  // --- 2. CREATOR ROBOT (Groq AI + Unsplash fallback) ---
   const generateArticle = async (title, description, imageUrl) => {
     addLog("🤖 Groq AI: Writing in English... ⚡");
 
@@ -87,14 +102,23 @@ function AutoBlogger() {
 
       const aiContent = data.choices[0].message.content;
 
+      // Agar image missing hai to Unsplash open endpoint use karo
       const finalImage =
         imageUrl ||
         `https://source.unsplash.com/800x400/?${encodeURIComponent(title)}`;
 
+      // Translate title based on userLang (using browser's built-in Intl API for demo)
+      const translatedTitle =
+        userLang === "en"
+          ? title
+          : new Intl.DisplayNames([userLang], { type: "language" })
+              ? title // Placeholder: ideally use translation API
+              : title;
+
       addLog("✅ Article Published!");
       const newPost = {
         id: Date.now(),
-        title: title,
+        title: translatedTitle,
         content: aiContent,
         image: finalImage
       };
@@ -110,6 +134,18 @@ function AutoBlogger() {
     <div className="dashboard dark-mode">
       <h1 className="title">⚙️ Auto-Blogger Dashboard</h1>
 
+      {/* --- BUTTON AREA --- */}
+      <div className="button-area">
+        {isLoading ? (
+          <p className="loading">⏳ Robots are working...</p>
+        ) : (
+          <button onClick={fetchNews} className="start-btn">
+            🚀 Start Automation
+          </button>
+        )}
+      </div>
+
+      {/* --- LOGS --- */}
       <div className="logs">
         {logs.length === 0 ? (
           <div>System Ready... Waiting for command.</div>
@@ -118,9 +154,12 @@ function AutoBlogger() {
         )}
       </div>
 
+      {/* --- ARTICLES --- */}
       <div className="articles">
         <h2>📝 Live Articles</h2>
-        {articles.length === 0 && <p className="empty">No articles yet.</p>}
+        {articles.length === 0 && (
+          <p className="empty">No articles yet.</p>
+        )}
         {articles.map((post) => (
           <div key={post.id} className="card">
             <img src={post.image} alt="Tech" className="card-img" />
