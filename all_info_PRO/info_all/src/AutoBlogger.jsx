@@ -39,7 +39,7 @@ function AutoBlogger() {
     setIsLoading(true);
     addLog("🕵️ Spy Robot: Searching for fresh news...");
 
-    const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY;
+    const NEWS_API_KEY = "57cb8a6fa0c746bb8d0c0175387a19bd";
     const url = `https://newsapi.org/v2/everything?q=tesla&from=2026-01-09&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`;
 
     try {
@@ -71,7 +71,7 @@ function AutoBlogger() {
   const generateArticle = async (title, description, imageUrl) => {
     addLog("🤖 Groq AI: Writing in English... ⚡");
 
-    const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
+    const GROQ_API_KEY = "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";
     const url = "https://api.groq.com/openai/v1/chat/completions";
     const requestBody = {
       model: "llama-3.1-8b-instant",
