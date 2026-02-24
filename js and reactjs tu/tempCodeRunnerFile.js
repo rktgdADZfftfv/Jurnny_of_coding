@@ -1,4 +1,4 @@
-// // Array (list)
+// Array (list)
 
 // import { log } from "node:console";
 
@@ -38,19 +38,3 @@
 // console.log(todaysbills[1]);
 // console.log(todaysbills[2]);
 // console.log(Total);
-
-// Add three or sum three
-// let Total1 = todaysbills[0]+todaysbills[1]+todaysbills[2];
-// console.log(Total1);
-
-const user = {
-    name : "A",
-    name : "A",
-    name : "A",
-    adress:{
-        stret : "Jhariya Chock",
-        ciy : "Jhariya",
-    }
-}
-console.log(user.adress.ciy);
-console.log(user.gf);
