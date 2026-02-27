@@ -54,3 +54,24 @@ const user = {
 }
 console.log(user.adress.ciy);
 console.log(user.gf);
+
+const mySkill = ["HTML", "CSS", "JAVASCRIPT", "REACT"];
+console.log(mySkill[2]);
+console.log(mySkill.length);
+
+const newsFead = [
+    {title: "Google ai", views: "500",},
+    {title: "New Iphone", views: "5000",},
+    {title: "React 19", views: "200",}
+
+];
+
+console.log(newsFead[1].title);
+console.log(newsFead[1].views);
+
+const prices = [100, 200, 300];
+const pricesgst = prices.map((pri => pri * 1.18))
+console.log(pricesgst);
+const age = [100, 200, 300];
+const voter = age.filter((voter => voter>=18))
+console.log(voter);
